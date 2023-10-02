@@ -84,6 +84,6 @@ void EulerStep(ParticleSystem* ps, float DeltaT){
   ScaleVector(temp1,deltaT);
   ParticleGetState(ps,temp2);
   AddVectors(temp1,temp2,temp2);  /* add -> temp2 */
-  ParticleSetState(p,temp2);      /* update state */
-  p->t += DeltaT;                 /* update time */
+  ParticleSetState(ps,temp2);      /* update state */
+  ps->t += DeltaT;                 /* update time */
 }
