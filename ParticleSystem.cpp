@@ -13,6 +13,10 @@ public:
     {
         return Vector3(x + other.x, y + other.y, z + other.z);
     }
+      Vector3 operator+=(const Vector3 &other) const
+    {
+        return Vector3(x + other.x, y + other.y, z + other.z);
+    }
 
     // Subtraction operator
     Vector3 operator-(const Vector3 &other) const
@@ -70,7 +74,7 @@ public:
 
     void apply_force() override
     {
-        particle->forceAccumulator = Vector3(0.0f, -particle->mass * gravity, 0.0f);
+        particle->forceAccumulator += Vector3(0.0f, -particle->mass * gravity, 0.0f);
     }
 };
 
@@ -196,7 +200,7 @@ void EulerStep(ParticleSystem *ps, float deltaT)
 int main()
 {
     Particle particle(1.0f); // Mass of 1.0
-    particle.position = Vector3(0, 100, 0);
+    particle.position = Vector3(0, 0, 0);
     GravityForce gravityForce(&particle, 9.81f); // Standard gravity
 
     ParticleSystem particleSystem;
@@ -210,7 +214,7 @@ int main()
 
     float deltaT = 0.1f;
 
-    for(float i = 0.0f; i < 10.0f; i+= deltaT){
+    for(float i = 0.0f; i < 1.1f; i+= deltaT){
         EulerStep(&particleSystem,deltaT);
         std::cout << "Time: " << particleSystem.time << "s, Position: (" << particle.position.x << ", " << particle.position.y << ", " << particle.position.z << ")\n";
     }
